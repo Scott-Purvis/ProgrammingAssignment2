@@ -12,8 +12,8 @@
 ## This list contains the following:
 ##  - variable that sets the value of the vector (set)
 ##  - variable that gets the value of the vector (get)
-##  - variable that sets the value of the inverse matrix (setmatrix)
-##  - variable that gets the value of the inverse matrix (getmatrix)
+##  - variable that sets the value of the inverse matrix (setim)
+##  - variable that gets the value of the inverse matrix (getim)
 
 
 makeCacheMatrix <- function(x = matrix()) {
@@ -23,11 +23,11 @@ makeCacheMatrix <- function(x = matrix()) {
     i <<- NULL
   }
   get <- function() x
-  setinverse <- function(solve) i <<- solve
-  getinverse <- function() i
+  setim <- function(solve) i <<- solve
+  getim <- function() i
   list(set = set, get = get,
-       setinverse = setinverse,
-       getinverse = getinverse)
+       setim = setim,
+       getim = getim)
 }
 
 ## cacheSolve is a function that checks to see if the 
@@ -38,13 +38,13 @@ makeCacheMatrix <- function(x = matrix()) {
 
 cacheSolve <- function(x, ...) {
   ## Return a matrix that is the inverse of 'x'
-  i <- x$getinverse()
+  i <- x$getim()
   if(!is.null(i)) {
     message("getting cached data")
     return(i)
   }
   data <- x$get()
   i <- solve(data, ...)
-  x$setinverse(i)
+  x$setim(i)
   i
 }
